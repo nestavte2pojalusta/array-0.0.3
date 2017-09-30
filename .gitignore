@@ -1,32 +1,39 @@
-# Prerequisites
-*.d
+#include "stdafx.h"
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+#include <iostream>
+#include <sstream>
+using namespace std;
 
-# Precompiled Headers
-*.gch
-*.pch
+bool massive(int array[10])
+{
+	string string;
+	getline(cin, string);
+	istringstream stream(string);
+	bool result = true;
+	for (int i = 0; i < 10; ++i) {
+		if (!(stream >> array[i])) {
+			result = false;
+			break;
+		}
+	}
+	return result;
+}
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+int main()
+{
+	int num1[10];
+	int num2[10];
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+	if (massive(num1) && massive(num2)) {
+		int max = num1[0] + num2[0];
+		for (int i = 0; i<10; i++) {
+			for (int j = 0; j <= i; j++) {
+				if ((num2[i] + num1[j]) > max) max = num2[i] + num1[j];
+			}
+		}
+		cout << max;
+	}
+	else {
+		cout << "An error has occured while reading numbers from line";
+	}
+}
